@@ -54,3 +54,7 @@ android {
         targetSdk = 33
     }
 }
+
+dependencies {
+    commonMainApi("dev.icerock.moko:mvvm-livedata:0.15.0")
+}
