@@ -20,6 +20,9 @@ class MyController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        simpleViewModel.setDatabaseDriverFactory(DatabaseDriverFactory())
+
         configView()
         initViewModel()
     }

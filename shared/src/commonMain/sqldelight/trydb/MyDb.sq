@@ -1,0 +1,16 @@
+
+
+CREATE TABLE Category (
+    id INTEGER NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    clue_count TEXT NOT NULL
+);
+
+insertCategory:
+INSERT INTO Category(id, title, clue_count) VALUES(?, ?, ?);
+
+removeAllCategories:
+DELETE FROM Category;
+
+selectAllCategories:
+SELECT * FROM Category;

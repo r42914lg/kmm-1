@@ -1,5 +1,7 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization").version("1.8.10")
+    id("com.squareup.sqldelight")
     id("com.android.library")
 }
 
@@ -18,10 +20,19 @@ kotlin {
 
     sourceSets {
         val ktorVersion = "2.2.3"
+        val sqlDelightVersion = "1.5.5"
         val commonMain by getting {
             dependencies {
+
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                implementation("io.ktor:ktor-serialization:$ktorVersion")
+
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+
+                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
             }
         }
         val commonTest by getting {
@@ -32,6 +43,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
         val androidTest by getting
@@ -45,6 +57,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
             }
         }
         val iosX64Test by getting
@@ -69,5 +82,12 @@ android {
 }
 
 dependencies {
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     commonMainApi("dev.icerock.moko:mvvm-livedata:0.15.0")
+}
+
+sqldelight {
+    database("MyDb") {
+        packageName = "trydb"
+    }
 }
