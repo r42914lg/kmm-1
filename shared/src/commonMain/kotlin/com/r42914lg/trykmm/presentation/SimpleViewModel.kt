@@ -13,15 +13,6 @@ class SimpleViewModel: ViewModel() {
 
     private lateinit var repo: CategoryRepository
 
-    init {
-        viewModelScope.launch {
-            repo.getCategories()
-                .doOnSuccess {
-                    repo.saveAll(it)
-                }
-        }
-    }
-
     private val _messageLiveData: MutableLiveData<HomeState>
         = MutableLiveData(HomeState(Greeting().greet()))
 
@@ -34,6 +25,13 @@ class SimpleViewModel: ViewModel() {
 
     fun setDatabaseDriverFactory(databaseDriverFactory: DatabaseDriverFactory) {
         repo = CategoryRepositoryImpl(databaseDriverFactory)
+
+        viewModelScope.launch {
+            repo.getCategories()
+                .doOnSuccess {
+                    repo.saveAll(it)
+                }
+        }
     }
 }
 
