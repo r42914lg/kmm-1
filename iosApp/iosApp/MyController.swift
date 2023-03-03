@@ -21,7 +21,7 @@ class MyController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        simpleViewModel.setDatabaseDriverFactory(DatabaseDriverFactory())
+        simpleViewModel.setDatabaseDriverFactory(databaseDriverFactory: DatabaseDriverFactory())
 
         configView()
         initViewModel()
@@ -41,5 +41,4 @@ class MyController: UIViewController {
     @objc func didButtonAddDataBaseClick(_ sender: UIButton) {
         simpleViewModel.next()
     }
-    
 }
