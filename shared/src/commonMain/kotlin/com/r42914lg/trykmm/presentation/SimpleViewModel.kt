@@ -2,6 +2,7 @@ package com.r42914lg.trykmm.presentation
 
 import com.r42914lg.trykmm.data.CategoryRepositoryImpl
 import com.r42914lg.trykmm.domain.CategoryRepository
+import com.r42914lg.trykmm.utils.doOnError
 import com.r42914lg.trykmm.utils.doOnSuccess
 import dev.icerock.moko.mvvm.livedata.LiveData
 import dev.icerock.moko.mvvm.livedata.MutableLiveData
@@ -30,6 +31,9 @@ class SimpleViewModel: ViewModel() {
             repo.getCategories()
                 .doOnSuccess {
                     repo.saveAll(it)
+                }
+                .doOnError {
+                    it.printStackTrace()
                 }
         }
     }
